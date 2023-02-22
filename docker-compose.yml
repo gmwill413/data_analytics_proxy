@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  reverse-proxy:
+    image: "nginx:latest"
+    container_name: "reverse-proxy"
+    restart: "always"
+    networks:
+      - "net"
+    ports:
+      - "80:80"
+      - "443:443"
+  react-website:
+    image: "clone"
+    container_name: "mu_gma_clone-gmaClone-1"
+    restart: "always"
+    depends_on:
+      - "reverse-proxy"
+    networks:
+      - "net"
+    ports:
+      - "8080:8080"
+networks:
+  net:
+    external: true
